@@ -10,6 +10,7 @@ AjaxDataSource = function(options) {
     this._idField = options.idField;
     this._model = '';
     this._primary_key = 'id';
+    this._hiddenField = options.hiddenField || [];
     // allows us to pass in the URL to get data from via Ajax
     this._data_url = options.data_url;
 
@@ -130,6 +131,10 @@ AjaxDataSource.prototype = {
 
             $.each(data, function (index, item) {
                 item.checkbox_column = '<input type="hidden" name="data['+self._model+']['+item[self._model][self._primary_key]+']['+self._primary_key+']" id="'+self._model+item[self._model][self._primary_key]+'Id_" value="0"><input type="checkbox" name="data['+self._model+']['+item[self._model][self._primary_key]+']['+self._primary_key+']" class="row-select" value="1" id="'+self._model+item[self._model][self._primary_key]+'Id">';
+                $.each(self._hiddenField, function(index, field){
+                    key = (Object.keys(field))[0];
+                    item.checkbox_column += '<input id="'+self._model+field[key]+item[self._model][self._primary_key]+'" type="hidden" '+ key + '="'+item[self._model][field[key]]+'" >';
+                });
             });
 
             if(self._action_boutons)
