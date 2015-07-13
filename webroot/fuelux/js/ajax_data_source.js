@@ -152,6 +152,9 @@ AjaxDataSource.prototype = {
                 self._formatter(data);
 
             callback(resp);
+            $('#CheckAll').click(function(){
+                $('input:checkbox').not(this).prop('checked', this.checked);
+            });
         }, self.delays[Math.floor(Math.random() * 4)]);
     },
     filtering : function(options, data){
