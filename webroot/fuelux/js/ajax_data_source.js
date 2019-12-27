@@ -7,6 +7,7 @@ AjaxDataSource = function(options) {
     this._data = options.data || [];
     this._action_boutons = options.action_boutons;
     this._sortField = options.sortField;
+    this._sortDirection = options.sortDirection || 'ASC';
     this._idField = options.idField;
     this._model = '';
     this._primary_key = 'id';
@@ -76,8 +77,8 @@ AjaxDataSource.prototype = {
             var data = $.extend(true, [], self._data);
             var count = data.length;
             var total = data.length;
-            var sort_field = options.sortProperty || self._sortField;;
-            var sort_order = options.sortDirection || 'ASC';
+            var sort_field = options.sortProperty || self._sortField;
+            var sort_order = options.sortDirection || self._sortDirection;
             var conditions = {};
             
             if(options.search){
@@ -152,6 +153,9 @@ AjaxDataSource.prototype = {
                 self._formatter(data);
 
             callback(resp);
+            $('#CheckAll').click(function(){
+                $('input:checkbox').not(this).prop('checked', this.checked);
+            });
         }, self.delays[Math.floor(Math.random() * 4)]);
     },
     filtering : function(options, data){

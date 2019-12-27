@@ -224,7 +224,7 @@
 				return $item;
 			};
 			this.$canvas.find('.repeater-list-items tr.selected').removeClass('selected');
-			this.$canvas.find( 'tbody.repeater-list-items' ).append(renderRow(row));
+			this.$canvas.find( 'tbody.repeater-list-items' ).prepend(renderRow(row));
 			this.resize();
 			
 			_data.push(row);
